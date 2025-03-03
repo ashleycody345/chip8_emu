@@ -2,8 +2,8 @@
 SRC_DIR = src
 BUILD_DIR = build
 
-# tracks all source files to be compiled on build, and compiler settings
-SRC_C = $(SRC_DIR)/main.c
+# tracks all source files to be compiled on build, and compiler settings 
+SRC_C = $(SRC_DIR)/main.c $(SRC_DIR)/hardware/chip_8.c
 FLAGS = -Wall -Wextra -Werror
 
 
