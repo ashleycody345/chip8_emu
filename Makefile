@@ -14,7 +14,7 @@ P ?=
 # compile, clear terminal, and run
 run: build
 	clear
-	@ ./$(BUILD_DIR)/emu $(P)
+	@ cd $(BUILD_DIR); ./emu $(P)
 
 # compile only in build dir
 build: setup $(SRC_C) 

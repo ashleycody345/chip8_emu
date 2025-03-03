@@ -15,7 +15,8 @@ int main(int argc, char **argv) {
 
 
     for(int i = 0; i < CHIP8_RAM_SIZE; i++) {
-        printf("%d: %d\n", i, emu_chip8.ram[i]);
+        if(i%16 == 0) printf("\n%03x: ", i);
+        printf("%02x ", emu_chip8.ram[i]);
     }
 
     return 0;

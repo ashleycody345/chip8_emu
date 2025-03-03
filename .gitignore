@@ -1,2 +1,5 @@
+# some of these are just used internally for testing,
+# they are ignored either way
 build/
 sample/
+out.txt
