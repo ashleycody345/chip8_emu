@@ -3,11 +3,19 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// internally used program name
+#define CHIP8_EMU_NAME      "chip8_emu\0"
+
+
+//
+// - system info -
+//
+
 #define CHIP8_RAM_SIZE      4096
 
 // prog_data: program data info
 typedef struct {
-    uint8_t *program_space;         // points to start of addressable program memory (0x600 for ETI 660, 0x200 else)
+    uint8_t *program_space;         // points to start of addressable program memory (0x200 default)
     uint16_t program_size;          // size of program_space, initialized in load_program()
 } prog_data;
 
@@ -23,4 +31,4 @@ typedef struct {
 //
 
 // load program onto device located at chip_8, initialize device
-int load_program(device *chip_8);
+int load_program(device *chip_8, char *filepath);

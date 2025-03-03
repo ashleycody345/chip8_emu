@@ -6,14 +6,15 @@ BUILD_DIR = build
 SRC_C = $(SRC_DIR)/main.c $(SRC_DIR)/hardware/chip_8.c
 FLAGS = -Wall -Wextra -Werror
 
-
+# program file to be loaded in make run
+P ?= 
 
 # BUILD TARGETS
 
 # compile, clear terminal, and run
 run: build
 	clear
-	@ ./$(BUILD_DIR)/emu
+	@ ./$(BUILD_DIR)/emu $(P)
 
 # compile only in build dir
 build: setup $(SRC_C) 
