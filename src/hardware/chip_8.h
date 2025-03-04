@@ -20,19 +20,12 @@
 #define CHIP8_PROG_START_DEFAULT    0x200
 #define CHIP8_MAX_PROG_SIZE         CHIP8_RAM_SIZE - CHIP8_PROG_START_DEFAULT
 
-enum CHIP8_REG {
-    V0, V1, V2, V3,
-    V4, V5, V6, V7,
-    V8, V9, VA, VB,
-    VC, VD, VE, VF,
-    V_s, V_d
-};
-
 // prog_data: program data info
 typedef struct {
     uint8_t *program_space;         // points to start of addressable program memory (0x200 default)
     uint16_t program_size;          // size of program_space, initialized in load_program()
 } prog_data;
+
 
 // c_device: chip-8 virtual c_device info
 typedef struct {
@@ -50,14 +43,31 @@ typedef struct {
     prog_data program;                  // loaded program
 } c_device;
 
+// enum for indexing into c_device.reg[]
+enum CHIP8_REG {
+    V0, V1, V2, V3,
+    V4, V5, V6, V7,
+    V8, V9, VA, VB,
+    VC, VD, VE, VF,
+    V_s, V_d
+};
+
+
+// instruction handling
+
 
 //
 // - system functions -
 //
 
+// initialize chip-8 device
+int init_device(c_device *chip_8);
+
 // load program onto device located at chip_8, initialize device
 int load_program(c_device *chip_8, char *filepath);
 
+// compute a singular virtual instruction
+int compute_instruction(c_device *chip_8);
 
 //
 // - error handling -

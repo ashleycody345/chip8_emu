@@ -7,7 +7,7 @@ SRC_C = $(SRC_DIR)/main.c $(SRC_DIR)/hardware/chip_8.c $(SRC_DIR)/hardware/c_dis
 FLAGS = -Wall -Wextra -Werror
 
 # program file to be loaded in make run
-P ?= maze.ch8
+P ?= s.ch8
 
 # BUILD TARGETS
 
@@ -19,6 +19,14 @@ run: build
 # compile only in build dir
 build: setup $(SRC_C) 
 	gcc -o $(BUILD_DIR)/emu $(SRC_C) $(FLAGS)
+
+# compile disassembler
+d: setup $(SRC_C)
+	gcc -o $(BUILD_DIR)/emu_disasm $(SRC_DIR)/hardware/chip_8.c $(SRC_DIR)/disasm.c
+
+d_run: d
+	clear
+	@ cd $(BUILD_DIR); ./emu_disasm $(P)
 
 # init setup
 setup:

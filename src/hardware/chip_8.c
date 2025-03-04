@@ -6,11 +6,25 @@
 // - system functions -
 //
 
+int init_device(c_device *chip_8) {
+    // set bytes to all 0
+    memset(chip_8, 0, sizeof(c_device));
+
+    // init value for PC
+    chip_8->reg_PC = CHIP8_PROG_START_DEFAULT;
+    return 0;
+}
+
 // load program onto device located at chip_8, initialize c_device
 // returns 0 on success, < 0 else
 int load_program(c_device *chip_8, char *filepath) {
-    // set RAM to all 0
-    memset(chip_8->ram, 0, CHIP8_RAM_SIZE);
+    // initialize chip_8 device
+    int init_status = init_device(chip_8);
+    if(init_status < 0) {
+        fprintf(stderr, "%s::ERROR: device failed to initialize\n", CHIP8_EMU_NAME);
+        return init_status;
+    }
+
 
     // open file 
     FILE *prog_text = fopen(filepath, "r");
@@ -48,6 +62,22 @@ int load_program(c_device *chip_8, char *filepath) {
     // close file and exit successfully
     fclose(prog_text);
     return 0;
+}
+
+int compute_instruction(c_device *chip_8) {
+    // fetch: get instruction at PC
+    uint16_t cur_inst;
+    memcpy(&cur_inst, &chip_8->ram[chip_8->reg_PC], sizeof(uint16_t));
+    // debug
+    printf("instruction @ 0x%.03x: %.04x\n", chip_8->reg_PC, cur_inst);
+    while(1) ;
+    
+    chip_8->reg_PC += sizeof(uint16_t);
+
+    
+    // decode: determine instruction & parameters
+
+    // 
 }
 
 
