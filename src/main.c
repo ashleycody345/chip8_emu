@@ -1,4 +1,5 @@
 #include "hardware/chip_8.h"
+#include "hardware/c_display.h"
 
 int main(int argc, char **argv) {
     if(argc != 2) {
@@ -6,17 +7,19 @@ int main(int argc, char **argv) {
         exit(2);
     }
 
-    device emu_chip8;
+    c_device emu_chip8;
+    c_display emu_display;
+    (void) emu_display;
 
     int load_status = load_program(&emu_chip8, argv[1]);
     if(load_status < 0){
         goto init_err;
     }
 
-
-    for(int i = 0; i < CHIP8_RAM_SIZE; i++) {
-        if(i%16 == 0) printf("\n%03x: ", i);
-        printf("%02x ", emu_chip8.ram[i]);
+    // main loop, execute program
+    bool should_stop = false;
+    while(!should_stop) {
+        // 
     }
 
     return 0;

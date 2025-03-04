@@ -3,11 +3,11 @@ SRC_DIR = src
 BUILD_DIR = build
 
 # tracks all source files to be compiled on build, and compiler settings 
-SRC_C = $(SRC_DIR)/main.c $(SRC_DIR)/hardware/chip_8.c
+SRC_C = $(SRC_DIR)/main.c $(SRC_DIR)/hardware/chip_8.c $(SRC_DIR)/hardware/c_display.c
 FLAGS = -Wall -Wextra -Werror
 
 # program file to be loaded in make run
-P ?= 
+P ?= maze.ch8
 
 # BUILD TARGETS
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -22,11 +24,11 @@ typedef struct {
     uint16_t program_size;          // size of program_space, initialized in load_program()
 } prog_data;
 
-// device: chip-8 virtual device info
+// c_device: chip-8 virtual c_device info
 typedef struct {
     uint8_t ram[CHIP8_RAM_SIZE];    // Chip-8 RAM buffer
     prog_data program;              // loaded program
-} device;
+} c_device;
 
 
 //
@@ -34,4 +36,17 @@ typedef struct {
 //
 
 // load program onto device located at chip_8, initialize device
-int load_program(device *chip_8, char *filepath);
+int load_program(c_device *chip_8, char *filepath);
+
+
+//
+// - error handling -
+//
+
+// list possible exception codes
+enum err_code {
+    SAMPLE_ERR,
+};
+
+// throw an exception and handle it accordingly, exiting if return is not possible
+void throw_except(enum err_code err);

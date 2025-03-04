@@ -6,9 +6,9 @@
 // - system functions -
 //
 
-// load program onto device located at chip_8, initialize device
+// load program onto device located at chip_8, initialize c_device
 // returns 0 on success, < 0 else
-int load_program(device *chip_8, char *filepath) {
+int load_program(c_device *chip_8, char *filepath) {
     // set RAM to all 0
     memset(chip_8->ram, 0, CHIP8_RAM_SIZE);
 
@@ -30,7 +30,7 @@ int load_program(device *chip_8, char *filepath) {
         return -1;
     }
 
-    printf("%s: size of prog %s is %u\n", CHIP8_EMU_NAME, filepath, prog_size);
+    printf("%s: size of program \"%s\" is %u\n", CHIP8_EMU_NAME, filepath, prog_size);
 
     // set memory pointer in chip-8 RAM
     chip_8->program.program_space = &chip_8->ram[CHIP8_PROG_START_DEFAULT];
@@ -48,4 +48,14 @@ int load_program(device *chip_8, char *filepath) {
     // close file and exit successfully
     fclose(prog_text);
     return 0;
+}
+
+
+//
+// - error handling -
+//
+
+void throw_except(enum err_code err) {
+    (void) err;
+    exit(1);
 }
