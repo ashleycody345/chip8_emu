@@ -19,7 +19,11 @@ int main(int argc, char **argv) {
     // main loop, execute program
     bool should_stop = false;
     while(!should_stop) {
-        // 
+        // accept key input
+
+        // decode and process instruction
+
+        // refresh display
     }
 
     return 0;

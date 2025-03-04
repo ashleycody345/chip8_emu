@@ -14,9 +14,19 @@
 //
 
 #define CHIP8_RAM_SIZE              4096
+#define CHIP8_STACK_SIZE            16
+#define CHIP8_REG_COUNT             18  // registers V0 - VF, and delay + sound registers (not including I, SP, PC)
 
 #define CHIP8_PROG_START_DEFAULT    0x200
 #define CHIP8_MAX_PROG_SIZE         CHIP8_RAM_SIZE - CHIP8_PROG_START_DEFAULT
+
+enum CHIP8_REG {
+    V0, V1, V2, V3,
+    V4, V5, V6, V7,
+    V8, V9, VA, VB,
+    VC, VD, VE, VF,
+    V_s, V_d
+};
 
 // prog_data: program data info
 typedef struct {
@@ -26,8 +36,18 @@ typedef struct {
 
 // c_device: chip-8 virtual c_device info
 typedef struct {
-    uint8_t ram[CHIP8_RAM_SIZE];    // Chip-8 RAM buffer
-    prog_data program;              // loaded program
+    // memory constructs
+    uint8_t ram[CHIP8_RAM_SIZE];        // Chip-8 RAM buffer
+    uint16_t stack[CHIP8_STACK_SIZE];   // Chip-8 call stack (separate from main memory)
+
+    // registers
+    uint8_t reg[CHIP8_REG_COUNT];       // gen. purpose, V0 - VF, sound and delay
+    uint8_t reg_SP;                     // stack ptr
+    uint16_t reg_PC;                    // program counter
+    uint16_t reg_I;                     // I register (points into ram typically)
+
+    // loaded program info
+    prog_data program;                  // loaded program
 } c_device;
 
 
